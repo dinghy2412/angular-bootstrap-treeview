@@ -1,0 +1,60 @@
+.treeModuel {
+    padding-top: 5px;
+}
+
+.treeModuelBox {
+    width: 400px;
+    /*transform: scale(0.5, 0.5);*/
+    /*transform-origin: 0% 0%;*/
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    padding-top: 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.orderDetailH4 {
+    height: 40px;
+    border-bottom: 1px solid #D8D8D8;
+    font-size: 14px;
+    font-family: "MicrosoftYaHei";
+    font-weight: 600;
+    text-indent: 5px;
+}
+
+.treeModuelBox .labelBox {
+    padding: 5px 5px;
+}
+
+.treeModuelBox .labelBox div, .selectedLabel {
+    margin: 0 10px 5px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    padding: 0 5px;
+    float: left;
+}
+
+.selectedLabel {
+    margin-top: 3px;
+    background-color: transparent;
+}
+.positionR {
+    position: relative;
+}
+
+.pointer {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+input {
+    outline: none;
+}
+.tree1 {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+
+
+

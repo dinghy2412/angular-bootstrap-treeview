@@ -1,0 +1,33 @@
+
+
+
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">标签</label>
+    <div class="col-sm-10">
+        <div class="form-control clearfix" style="min-height: 34px;height: auto;">
+            <div ng-repeat="ele in selectedLabel" class="pointer selectedLabel"
+                 ng-click="deleteLable(ele)">{{ele.text}}
+                <button ng-click="deleteLabel(ele)" type="button" class="close pull-right positionR" style="z-index: 99;margin-top: -3px" aria-label="Close" ng-click="treeFlag=false"><span aria-hidden="true" style="font-size: 18px;">&times;</span></button>
+            </div>
+            <input id="inputEmail3" type="text" style="border: none;" ng-focus="treeFlag=true">
+        </div>
+        <div class="positionR" ng-show="treeFlag">
+            <div class="treeModuelBox" style="position: absolute;top: 0;left:0;">
+                <button type="button" class="close pull-right positionR" style="z-index: 99;margin-right: 5px;" aria-label="Close" ng-click="treeFlag=false"><span aria-hidden="true">&times;</span></button>
+                <div class="treeModuel">
+                    <button class="btn btn-default" ng-click="completeSelect()" style="margin-left: 5px">确定选择</button>
+                    <h4 class="orderDetailH4">最近使用
+                    </h4>
+                    <div class="labelBox clearfix">
+                        <div ng-repeat="ele in historyLabel track by $index" id="historyLabel{{$index}}" class="pointer {{ele.selected ? 'alert-info' : ''}}"
+                             ng-click="selectLabel(ele, $index)">{{ele.text}}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 clearfix"><input type="input" class="form-control" id="input-expand-node1" placeholder="请输入..."
+                                                  style="margin-bottom: 10px"></div>
+                    <div id="tree1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
