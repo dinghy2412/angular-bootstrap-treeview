@@ -7,7 +7,7 @@
     <!--<meta http-equiv="X-UA-Compatible" content="ie=edge">-->
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/angular-treeview.css">
 </head>
 <body ng-app="myApp" ng-controller="myController">
 <div style="width: 800px;">
@@ -18,7 +18,7 @@
 <script src="js/angular.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap-treeview.min.js"></script>
-<script src="js/angular%20treeview.js"></script>
+<script src="js/angular_treeview.js"></script>
 <script>
     var myApp = angular.module('myApp', ["labelModel"]);
     myApp.controller('myController', ['$scope', function ($scope) {
@@ -29,26 +29,6 @@
             $scope.historyLabelList = [];
         }
         $scope.selectedLabel = {};
-        $scope.aaa = function () {
-            console.log($scope.selectedLabel)
-        };
-        var a = [
-            {
-                "nodes": [
-                    {
-                        "id": 328,
-                        "text": "1",
-                        "tags": [
-                            "0"
-                        ]
-                    }
-                ],
-                "id": 327,
-                "text": "111",
-                "tags": [
-                    "1"
-                ]
-            }];
         $scope.$on("selectLabel", function (event, data) {
             for (var i = 0 in data) {
                 $scope.historyLabelList.unshift(data[i])
