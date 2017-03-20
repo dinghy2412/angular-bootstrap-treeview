@@ -3,30 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <!--<meta name="viewport"-->
-          <!--content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+    <!--content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
     <!--<meta http-equiv="X-UA-Compatible" content="ie=edge">-->
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body ng-app="myApp" ng-controller="myController">
-
-
 <div style="width: 800px;">
     <label-model history-label="historyLabelList" selected-label="selectedLabel"></label-model>
-
 </div>
 
 
 <script src="js/angular.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap-treeview.min.js"></script>
+<script src="js/angular%20treeview.js"></script>
 <script>
-    var myApp = angular.module('myApp', []);
-    myApp.controller('myController',['$scope',function ($scope) {
-        $scope.historyLabelList = JSON.parse(window.localStorage.getItem('productLabel'));
-        $scope.selectedLabel = {111 : {text : '11', id : '111'}};
-
+    var myApp = angular.module('myApp', ["labelModel"]);
+    myApp.controller('myController', ['$scope', function ($scope) {
+        var productLabel = window.localStorage.getItem('productLabel');
+        if (productLabel) {
+            $scope.historyLabelList = JSON.parse(productLabel);
+        } else {
+            $scope.historyLabelList = [];
+        }
+        $scope.selectedLabel = {};
+        $scope.aaa = function () {
+            console.log($scope.selectedLabel)
+        };
         var a = [
             {
                 "nodes": [
@@ -43,68 +48,15 @@
                 "tags": [
                     "1"
                 ]
-            }]
-    }]).directive('labelModel', ["$http", function () {
-        return {
-            restrict: 'AE',
-            scope: {
-                historyLabel: "=",
-                selectedLabel : "="
-            },
-            templateUrl: 'tpls/historyLabel.html',
-            controller: function ($scope, $element, $http) {
-                $http({
-                    url: "data.json",
-                    method: "GET"
-                }).success(function (data) {
-                    var $expandibleTree = $('#tree1').treeview({
-                        data: data.result,
-                        levels: 1,
-                        showTags: true,
-                        multiSelect: true
-                    });
-                    var findExpandibleNodess = function () {
-                        return $expandibleTree.treeview('search', [$('#input-expand-node1').val(), {
-                            ignoreCase: false,
-                            exactMatch: false
-                        }]);
-                    };
-                    var expandibleNodes = findExpandibleNodess();
-                    $('#input-expand-node1').on('keyup', function () {
-                        expandibleNodes = findExpandibleNodess();
-                    });
-
-                })
-                $scope.completeSelect = function () {
-                    var tempList = $('#tree1').treeview('getSelected');
-                    for (var i = 0, len = tempList.length; i < len; i++) {
-                        var labelID = tempList[i].id;
-                        $scope.selectedLabel[labelID] = tempList[i];
-                    }
-                    if ($scope.tempLabel) {
-                        Object.assign($scope.selectedLabel, $scope.tempLabel)
-                    }
-                    $scope.$emit('selectLabel', $scope.selectedLabel);
-                    $scope.treeFlag     = false;
-                    $scope.tempLabel    = {}
-                };
-                $scope.tempLabel        = {};
-                $scope.selectLabel = function (ele, $index) {
-                    $scope.historyLabel[$index].selected = !$scope.historyLabel[$index].selected;
-                    if ($scope.tempLabel[ele.id]) {
-                        delete $scope.tempLabel[ele.id]
-                    } else {
-                        $scope.tempLabel[ele.id] = ele;
-                    }
-                };
-                $scope.deleteLabel = function (ele) {
-                    delete $scope.selectedLabel[ele.id]
-                }
-
+            }];
+        $scope.$on("selectLabel", function (event, data) {
+            for (var i = 0 in data) {
+                $scope.historyLabelList.unshift(data[i])
             }
-        }
-    }]);
-
+            $scope.historyLabelList = $scope.historyLabelList.slice(0, 5);
+            window.localStorage.setItem('productLabel', JSON.stringify($scope.historyLabelList))
+        })
+    }])
 
 </script>
 </body>
