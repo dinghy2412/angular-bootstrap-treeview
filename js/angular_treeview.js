@@ -39,11 +39,14 @@ angular.module("labelModel", []).directive('labelModel', ["$http", function () {
                     $scope.selectedLabel[labelID] = tempList[i];
                 }
                 if ($scope.tempLabel) {
-                    Object.assign($scope.selectedLabel, $scope.tempLabel)
+                    Object.assign($scope.selectedLabel, $scope.tempLabel);
+                    $scope.tempLabel    = {};
+                    for (var i in $scope.historyLabel) {
+                        $scope.historyLabel[i].selected = false;
+                    }
                 }
                 $scope.$emit('selectLabel', $scope.selectedLabel);
                 $scope.treeFlag     = false;
-                $scope.tempLabel    = {};
                 for (var i in tempList) {
                     $('#tree1').treeview('toggleNodeSelected', [ tempList[i].nodeId, { silent: false } ]);
                 }
